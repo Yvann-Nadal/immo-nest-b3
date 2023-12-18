@@ -8,6 +8,9 @@ export class UserEntity extends CommonEntity {
     id: number;
 
     @Column()
+    name: string;
+
+    @Column()
     email: string;
 
     @Column()

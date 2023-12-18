@@ -9,4 +9,9 @@ export class DatabaseConfigController {
   createFixturesAdverts() {
     return this.databaseConfigService.createFixturesAdverts()
   }
+
+  @Post('users')
+  createFixturesUsers() {
+    return this.databaseConfigService.createFixturesUsers()
+  }
 }

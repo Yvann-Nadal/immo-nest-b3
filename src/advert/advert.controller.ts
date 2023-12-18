@@ -3,6 +3,7 @@ import { AdvertService } from './advert.service';
 import { CreateAdvertDto } from './dto/create-advert.dto';
 import { UpdateAdvertDto } from './dto/update-advert.dto';
 import { QueriesAdvertDto } from './dto/queries-advert.dto';
+import { AdvertEntity } from './entities/advert.entity';
 
 @Controller('adverts')
 export class AdvertController {
@@ -12,14 +13,21 @@ export class AdvertController {
   create(@Body() createAdvertDto: CreateAdvertDto) {
     return this.advertService.create(createAdvertDto);
   }
-
+  
   @Get()
   findAll(
     @Query() queries: QueriesAdvertDto
-  ) {
-    return this.advertService.findAll(queries);
+    ) {
+      return this.advertService.findAll(queries);
+    }
+
+  @Get()
+  findAllFiltered(
+    @Query() queries: QueriesAdvertDto
+    ): Promise<AdvertEntity[]> {
+    return this.advertService.findAllAdvertsByFilters(queries);
   }
-  
+    
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.advertService.findOne(+id);

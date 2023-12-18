@@ -64,6 +64,27 @@ export class AdvertService {
     }
   }
 
+  async findAllAdvertsByFilters(queries: QueriesAdvertDto): Promise<AdvertEntity[]> {
+    const queryBuilder = this.advertRepository.createQueryBuilder('advert');
+
+    // Join with the user table if user name is specified
+    if (queries.query !== undefined) {
+      queryBuilder.leftJoin('advert.user', 'user');
+    }
+
+    // Filter by user name
+    if (queries.query !== undefined) {
+      queryBuilder.andWhere('user.username LIKE :username', {
+        username: `%${queries.query}%`,
+      });
+    }
+
+    // Other filters...
+
+    // Execute the query
+    return await queryBuilder.getMany();
+  }
+
   async findOne(id: number) {
     const advert = await this.advertRepository.findOneBy({id: id});
 

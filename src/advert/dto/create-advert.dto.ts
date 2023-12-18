@@ -5,4 +5,5 @@ export class CreateAdvertDto {
     square_meters: number
     description: string
     phoneNumber: string
+    userId: number
 }
